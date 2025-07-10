@@ -14,7 +14,7 @@ const SignUpPage = () => {
     password: "",
   });
 
-  const { signup, isSigningIn } = useAuthStore();
+  const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required");
@@ -26,11 +26,13 @@ const SignUpPage = () => {
     return true;
   };
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  const success = validateForm();
-  if (success === true) await signup(formData);
-};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const success = validateForm();
+
+    if (success === true) signup(formData);
+  };
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
@@ -117,11 +119,11 @@ const SignUpPage = () => {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-primary w-full" disabled={isSigningIn}>
-              {isSigningIn ? (
+            <button type="submit" className="btn btn-primary w-full" disabled={isSigningUp}>
+              {isSigningUp ? (
                 <>
                   <Loader2 className="size-5 animate-spin" />
-                   Loading...
+                  Loading...
                 </>
               ) : (
                 "Create Account"
